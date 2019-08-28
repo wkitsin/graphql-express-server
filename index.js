@@ -27,9 +27,8 @@ app.use(async req => {
   const token = req.headers.authorization;
 
   try {
-    const user = await jwt.verify(token, SECRET, (err, decodedToken) => {
-      req.user = decodedToken.user;
-    });
+    const { user } = await jwt.verify(token, SECRET);
+    req.user = user;
   } catch (error) {
     console.log(error);
   }
