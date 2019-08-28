@@ -1,6 +1,11 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
+import { PubSub } from "graphql-subscriptions";
+
+export const pubsub = new PubSub();
+
+const USER_ADDED = "USER_ADDED";
 
 export default {
   User: {
@@ -101,6 +106,12 @@ export default {
       );
 
       return token;
+    }
+  },
+
+  Subscription: {
+    userAdded: {
+      subscribe: () => pubsub.asyncIterator(USER_ADDED)
     }
   }
 };

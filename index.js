@@ -2,6 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import { graphiqlExpress, graphqlExpress } from "graphql-server-express";
 import { makeExecutableSchema } from "graphql-tools";
+import { createServer } from "http";
+import { execute, subscribe } from "graphql";
+import { SubscriptionServer } from "subscriptions-transport-ws";
 
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
@@ -50,6 +53,20 @@ app.use(
   }))
 );
 
+const server = createServer(app);
+
 models.sequelize.sync({ logging: true }).then(() => {
-  app.listen(3000);
+  server.listen(3000, () => {
+    new SubscriptionServer(
+      {
+        execute,
+        subscribe,
+        schema
+      },
+      {
+        server,
+        path: "/subscriptions"
+      }
+    );
+  });
 });
