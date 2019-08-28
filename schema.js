@@ -25,6 +25,10 @@ type User {
   suggestions: [Suggestion!]!
 }
 
+type Subscription {
+  userAdded: User!
+}
+
 type Query {
   me: User
   allUsers: [User!]!
@@ -34,7 +38,6 @@ type Query {
   userSuggestions(creatorId: Int!): [Suggestion!]!
 
 }
-
 
 type Mutation {
   createUser(username: String!): User
@@ -47,5 +50,12 @@ type Mutation {
 
   register(username: String!, password: String!, email: String!): User!
   login(email: String!, password: String!): String!
+}
+
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }
 `;
