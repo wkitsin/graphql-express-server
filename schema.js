@@ -17,6 +17,8 @@ type Board {
 type User {
   id: Int!
   username: String!
+  email: String!
+  password: String!
   createdAt: String!
   updatedAt: String!
   boards: [Board!]!
@@ -24,7 +26,7 @@ type User {
 }
 
 type Query {
-  getUser(username: String!): User
+  me: User
   allUsers: [User!]!
 
   userBoards(owner: Int!): [Board!]!
@@ -42,5 +44,8 @@ type Mutation {
   createBoard(name: String!, owner: Int!): Board!
 
   createSuggestion(text: String!, creatorId: Int!, boardId: Int!): Suggestion!
+
+  register(username: String!, password: String!, email: String!): User!
+  login(email: String!, password: String!): String!
 }
 `;
