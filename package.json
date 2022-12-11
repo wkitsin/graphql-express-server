@@ -13,7 +13,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.17.2",
     "cors": "^2.8.5",
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "graphql": "^14.5.3",
     "graphql-server-express": "^0.8.0",
     "graphql-subscriptions": "^1.1.0",
